@@ -1,11 +1,34 @@
-<script setup></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <header class="navbar">
+    <div class="logo">🏀 HoopLab</div>
+    <nav>
+      <router-link to="/">Acasa</router-link>
+      <router-link to="/about">Despre</router-link>
+    </nav>
+  </header>
+
+  <main class="container">
+    <router-view /> </main>
 </template>
 
-<style scoped></style>
+<style>
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 5%;
+  background: #111;
+  color: white;
+}
+nav a {
+  color: #ccc;
+  text-decoration: none;
+  margin-left: 20px;
+}
+nav a.router-link-active { color: #ff6600; font-weight: bold; }
+.container { padding: 40px 5%; }
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .navbar { flex-direction: column; align-items: center; gap: 15px; }
+}
+</style>

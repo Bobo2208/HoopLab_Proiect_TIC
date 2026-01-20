@@ -34,6 +34,19 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
+app.get('/api/workouts', async (req, res) => {
+  try {
+    const snapshot = await db.collection('workouts').get();
+    const workouts = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    res.json(workouts); 
+  } catch (error) {
+    res.status(500).json({ error: "Eroare la preluarea datelor: " + error.message });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`[HoopLab] Serverul rulează pe http://localhost:${PORT}`);
