@@ -8,7 +8,7 @@ defineProps(['workout']);
     <h3>{{ workout.title }}</h3>
     <p>{{ workout.description }}</p>
     <div class="details">
-      <span>⏱️ {{ workout.duration }} min </span>
+      <span> {{ workout.duration }} min </span>
       <span :class="['difficulty', workout.difficulty.toLowerCase()]">
         {{ workout.difficulty }}
       </span>

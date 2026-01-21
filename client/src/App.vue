@@ -1,6 +1,6 @@
 <template>
   <header class="navbar">
-    <div class="logo">🏀 HoopLab</div>
+    <div class="logo">HoopLab</div>
     <nav>
       <router-link to="/">Acasa</router-link>
       <router-link to="/about">Despre</router-link>
