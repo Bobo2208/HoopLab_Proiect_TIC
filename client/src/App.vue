@@ -1,34 +1,61 @@
-<template>
-  <header class="navbar">
-    <div class="logo">HoopLab</div>
-    <nav>
-      <router-link to="/">Acasa</router-link>
-      <router-link to="/about">Despre</router-link>
-    </nav>
-  </header>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { auth } from './firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
-  <main class="container">
-    <router-view /> </main>
+const router = useRouter();
+const isLoggedIn = ref(false);
+
+onMounted(() => {
+  onAuthStateChanged(auth, (user) => {
+    isLoggedIn.value = !!user;
+  });
+});
+
+const handleLogout = async () => {
+  try {
+    await signOut(auth);
+    console.log("Utilizator delogat cu succes");
+    router.push('/login'); 
+  } catch (error) {
+    console.error("Eroare la logout:", error);
+  }
+};
+</script>
+
+<template>
+  <nav class="navbar">
+    <div class="logo">HoopLab </div>
+    <div class="menu">
+      <router-link to="/">Antrenamente</router-link>
+      <button v-if="isLoggedIn" @click="handleLogout" class="logout-btn">
+        Ieșire
+      </button>
+    </div>
+  </nav>
+
+  <router-view />
 </template>
 
-<style>
+<style scoped>
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 20px 5%;
-  background: #111;
+  padding: 1rem 2rem;
+  background: #1a1a1a;
   color: white;
 }
-nav a {
-  color: #ccc;
-  text-decoration: none;
-  margin-left: 20px;
+.logout-btn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 15px;
 }
-nav a.router-link-active { color: #ff6600; font-weight: bold; }
-.container { padding: 40px 5%; }
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-  .navbar { flex-direction: column; align-items: center; gap: 15px; }
+.logout-btn:hover {
+  background: #cc0000;
 }
 </style>

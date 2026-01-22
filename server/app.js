@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json'); 
+const checkAuth = require('./authMiddleware');
 require('dotenv').config();
 
 
@@ -34,7 +35,7 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.get('/api/workouts', async (req, res) => {
+app.get('/api/workouts', checkAuth, async (req, res) => {
   try {
     const snapshot = await db.collection('workouts').get();
     const workouts = snapshot.docs.map(doc => ({
