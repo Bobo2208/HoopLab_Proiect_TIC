@@ -2,13 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCacAWtFmkNnxUrC_FQga44_heDySpJ8Lo",
-  authDomain: "hooplab-tic.firebaseapp.com",
-  projectId: "hooplab-tic",
-  storageBucket: "hooplab-tic.firebasestorage.app",
-  messagingSenderId: "117957774492",
-  appId: "1:117957774492:web:2f40a44edf2df82d1eb159",
-  measurementId: "G-Z1N01M9GDW"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
