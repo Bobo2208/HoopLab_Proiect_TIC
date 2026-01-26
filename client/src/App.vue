@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { auth } from './firebase';
+import { auth } from './firebase'; 
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const router = useRouter();
@@ -26,36 +26,88 @@ const handleLogout = async () => {
 
 <template>
   <nav class="navbar">
-    <div class="logo">HoopLab </div>
-    <div class="menu">
-      <router-link to="/">Antrenamente</router-link>
-      <button v-if="isLoggedIn" @click="handleLogout" class="logout-btn">
+    <div class="logo" @click="router.push('/')">HoopLab</div>
+    
+    <div v-if="isLoggedIn" class="menu">
+      <router-link to="/" class="nav-link">Profilul Meu</router-link>
+      <router-link to="/explore" class="nav-link">Explorează</router-link>
+      
+      <button @click="handleLogout" class="logout-btn">
         Ieșire
       </button>
     </div>
   </nav>
 
-  <router-view />
+  <div class="main-content">
+    <router-view />
+  </div>
 </template>
 
-<style scoped>
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f4f4;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  align-items: center;
+  padding: 0.8rem 2rem;
   background: #1a1a1a;
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6600;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ff6600;
+}
+
+.router-link-active {
+  color: white !important;
+  border-bottom: 2px solid #ff6600;
+}
+
 .logout-btn {
   background: #ff4444;
   color: white;
   border: none;
-  padding: 5px 15px;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-left: 15px;
+  font-weight: bold;
+  transition: background 0.3s;
 }
+
 .logout-btn:hover {
   background: #cc0000;
+}
+
+.main-content {
+  padding: 20px;
 }
 </style>
